@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
-import ContactInfoSection from './ContactInfoSection';
+import ContactList from './ContactList';
+import ContactCard from './ContactCard';
 import './App.css'
 
 const API_URL = `https://jsonplaceholder.typicode.com/`;
@@ -19,17 +20,21 @@ async function fetchUsers(setUserList) {
 function App() {
   // State
   const [contacts, setContacts] = useState([]);
+  const [selectedContactID, selectContactID] = useState([]);
 
   // On Page Load
   useEffect(() => {fetchUsers(setContacts)}, []);
 
+  // On Update
+  const selectedContact = contacts.find(contact => contact.id === selectedContactID);
+
   // Render
   return (
     <>
-      <h1>Contact List</h1>
-      <section className='container'>
-        { ["name", "email", "phone"].map(infoKey => <ContactInfoSection key={infoKey} {...{contacts, infoKey}} />)}
-      </section>
+      { selectedContact
+        ? <ContactCard contact={selectedContact} goBack={() => selectContactID(-1)} />
+        : <ContactList {...{contacts, selectContactID}} />
+      }
     </>
   )
 }
