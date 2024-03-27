@@ -4,3 +4,12 @@
   padding: 2rem;
   text-align: center;
 }
+
+.container {
+  display: flex;
+}
+
+.infoSection {
+  padding: 0.2em;
+  margin: 0.2em;
+}

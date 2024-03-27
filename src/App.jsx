@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import './App.css'
 import { useEffect } from 'react';
+import ContactInfoSection from './ContactInfoSection';
+import './App.css'
 
 const API_URL = `https://jsonplaceholder.typicode.com/`;
 
 async function fetchUsers(setUserList) {
   const response = await fetch(API_URL + "users");
   const json = await response.json();
-  console.log("fetchedJson:", json);
 
   setUserList(json);
 }
@@ -20,10 +20,10 @@ function App() {
 
   return (
     <>
-      <h1>Add Contact List here!</h1>
-      <ul>{
-          contacts.map(contact => <li key={contact.id}>{contact.name}</li>)
-      }</ul>
+      <h1>Contact List</h1>
+      <section className='container'>
+        { ["name", "email", "phone"].map(infoKey => <ContactInfoSection key={infoKey} {...{contacts, infoKey}} />)}
+      </section>
     </>
   )
 }
